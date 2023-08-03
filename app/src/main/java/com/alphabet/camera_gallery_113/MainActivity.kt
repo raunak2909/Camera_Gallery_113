@@ -19,21 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //camera
-        val iCam = Intent()
-        iCam.action = MediaStore.ACTION_IMAGE_CAPTURE
 
-        val cameraLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ){result ->
-            if(result.resultCode == Activity.RESULT_OK){
-                result.data?.let{
-                    val image = result.data!!.extras!!.get("data")  as Bitmap
-                    binding.imageView.setImageBitmap(image)
-                }
-
-            }
-        }
 
         //gallery
         val iGallery = Intent()
@@ -67,6 +53,22 @@ class MainActivity : AppCompatActivity() {
                     } catch(e: Exception){
 
                     }
+                }
+
+            }
+        }
+
+        //camera
+        val iCam = Intent()
+        iCam.action = MediaStore.ACTION_IMAGE_CAPTURE
+
+        val cameraLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ){result ->
+            if(result.resultCode == Activity.RESULT_OK){
+                result.data?.let{
+                    val image = result.data!!.extras!!.get("data")  as Bitmap
+                    binding.imageView.setImageBitmap(image)
                 }
 
             }
